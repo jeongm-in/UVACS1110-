@@ -1,3 +1,5 @@
+# From https://gist.github.com/octocat/9257657
+
 # Compiled source #
 ###################
 *.com
@@ -36,4 +38,4 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-.idea
+.idea #PyCharm specific
