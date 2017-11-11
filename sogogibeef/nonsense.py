@@ -11,7 +11,7 @@ def repeat_12_Times(word):
     word_repeated = ' '.join(list_of_words)
     print(word_repeated)
 
-    print(('\'%s\' doesn\'t even sound like a word anymore') % word)
+    print(('\"%s\" doesn\'t even sound like a word anymore') % word)
     # following bartleby's advice, used %s string formatter instead of messy escape sequences
 
 
