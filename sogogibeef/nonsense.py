@@ -5,15 +5,15 @@
 
 
 def repeat_12_times(word):
-    list_of_words = [word] * 12 # Following bartleby's advice, removed unnecessary iteration
+    list_of_words = [word] * 12
+    # Note to self : no need to create blank lists as I did in java
     word_repeated = ' '.join(list_of_words)
     print(word_repeated)
-    print(('\"%s\" doesn\'t even sound like a word anymore') % word)
-    # Following bartleby's advice, used %s string formatter instead of messy escape sequences
+    last_line = '"{}" doesn\'t even sound like a word anymore'.format(word)
+    print(last_line)
 
 
 favorite_word = input("Please type your favorite word: ")
-# I am so used to initializing variables. Perhaps (at least for me) biggest difference
-# Q : for long comments, what should I do? break to the next line?
+
 
 repeat_12_times(favorite_word)
