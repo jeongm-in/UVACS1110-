@@ -39,5 +39,9 @@
 ehthumbs.db
 Thumbs.db
 
+
 #PyCharm specific
 .idea
+
+#Pyhton created files : https://stackoverflow.com/a/16869074/8776165
+__pycahce__
