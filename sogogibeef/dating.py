@@ -22,9 +22,14 @@ def date_age_range_calculator():
     return user_age
 
 def age_limit_calculator(age_of_user):
-    date_lower_limt = age_of_user / 2 + 7
+    date_lower_limit = age_of_user / 2 + 7
     date_upper_limit = age_of_user * 2 - 13
-    print('You can date people between %d and %d years old' % (date_lower_limt, date_upper_limit))
+    final_line = 'You can date people between {} and {} years old.'.format(date_lower_limit, date_upper_limit)
+    # Strange behavior observed :
+    # date_lower_limit is float and date_upper_limit is int
+    # what????
+
+    print(final_line)
 
 
 your_age = date_age_range_calculator()
