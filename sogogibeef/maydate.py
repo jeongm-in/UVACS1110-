@@ -13,26 +13,20 @@
 #         return True
 #     return False
 
+# Thought question 1: when person_one is younger
 
-# Thought question 1: person_two is younger
 # def creepy(person_one_age, person_two_age):
-#     ages = [person_one_age, person_two_age]
-#     if ages[0] < ages[1]:
-#         ages = reversed(ages)
-#         # Using reversed() function : https://stackoverflow.com/a/3940144/8776165
 #     person_one_upper_limit = int(person_one_age * 2 - 13)
 #     person_one_lower_limit = int(person_one_age / 2 + 7)
 #     person_one_datable_range = range(person_one_lower_limit, person_one_upper_limit+1)
 #     return person_two_age in person_one_datable_range
+#     # This works even when first person is younger. But does not work for fractional ages
 
 
 # Thought question 2: allow one year age difference
-# WIP
 def creepy(person_one_age, person_two_age):
-    ages = [person_one_age, person_two_age]
-    if ages[0] < ages[1]:
-        ages = reversed(ages)
-        # Using reversed() function : https://stackoverflow.com/a/3940144/8776165
+    while (person_one_age and person_two_age < 16) and abs(person_one_age - person_two_age == 1):
+        return True
     person_one_upper_limit = int(person_one_age * 2 - 13)
     person_one_lower_limit = int(person_one_age / 2 + 7)
     person_one_datable_range = range(person_one_lower_limit, person_one_upper_limit+1)
@@ -40,6 +34,3 @@ def creepy(person_one_age, person_two_age):
 
 
 
-
-
-# print(creepy(20, 25))
