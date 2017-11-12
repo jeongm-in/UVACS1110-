@@ -3,6 +3,6 @@
 # prints what I want to tell you on second line
 # comment another thing I want to tell you on third line
 
-print("Yo soy Jeong Min Lim.")
-print("sunbong sunbong.")
+print('Yo soy Jeong Min Lim.')
+print('sunbong sunbong.')
 # ho-kan-ki iz coming...
