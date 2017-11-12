@@ -7,7 +7,14 @@
 
 # Plus
 def date_age_range_calculator():
-    user_age = int(input('How old are you? ')) # Note to self : Apparently input returns string value.
+    user_age = int(input('How old are you? '))
+    # Note to self : Apparently input returns string value.
+    # In python 2, input automatically chose data type for fed value
+    # and raw_input cast every input to string.
+    # In python 3, raw_input is removed and input has behavior of raw_input.
+    # Thus return value of input function should be cast to whichever data Type
+    # Source : https://stackoverflow.com/questions/20449427/how-can-i-read-inputs-as-integers
+
     while user_age < 14:
         print('Error; You should be older than 13. ', end='')
         user_age = int(input('How old are you? '))
