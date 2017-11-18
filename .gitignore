@@ -40,9 +40,8 @@ ehthumbs.db
 Thumbs.db
 
 
-#PyCharm specific
+# PyCharm specific
 .idea
 
-#Pyhton created files : https://stackoverflow.com/a/16869074/8776165
-#
-sogogibeef/__pycahce__
+# Python created files : https://stackoverflow.com/a/16869074/8776165
+*/__pycache__
