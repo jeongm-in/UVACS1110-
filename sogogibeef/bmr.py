@@ -12,4 +12,3 @@ def st_jeor(mass, height, age, sex):
         sex_coefficient = 5
     metabolic_rate = (10.0 * mass) + (6.25 * height) - (5.0 * age) + sex_coefficient
     return metabolic_rate
-

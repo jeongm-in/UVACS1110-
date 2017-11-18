@@ -6,7 +6,7 @@ def c2f(temp_in_celsius):
     celsius_to_fahrenheit = temp_in_celsius / 5 * 9 + 32
     return celsius_to_fahrenheit
 
-def f2c(temp_in_fahrenheit):
-    fahrenheit_to_celsius = (temp_in_fahrenheit -32)* 5 / 9
-    return fahrenheit_to_celsius
 
+def f2c(temp_in_fahrenheit):
+    fahrenheit_to_celsius = (temp_in_fahrenheit - 32) * 5 / 9
+    return fahrenheit_to_celsius

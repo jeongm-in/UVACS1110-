@@ -29,8 +29,5 @@ def creepy(person_one_age, person_two_age):
         return True
     person_one_upper_limit = int(person_one_age * 2 - 13)
     person_one_lower_limit = int(person_one_age / 2 + 7)
-    person_one_datable_range = range(person_one_lower_limit, person_one_upper_limit+1)
+    person_one_datable_range = range(person_one_lower_limit, person_one_upper_limit + 1)
     return person_two_age in person_one_datable_range
-
-
-

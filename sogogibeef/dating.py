@@ -21,6 +21,7 @@ def date_age_range_calculator():
 
     return user_age
 
+
 def age_limit_calculator(age_of_user):
     date_lower_limit = age_of_user / 2 + 7
     date_upper_limit = age_of_user * 2 - 13
@@ -34,7 +35,3 @@ def age_limit_calculator(age_of_user):
 
 your_age = date_age_range_calculator()
 age_limit_calculator(your_age)
-
-
-
-

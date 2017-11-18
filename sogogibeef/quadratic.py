@@ -8,7 +8,7 @@ def big_root(a, b, c):
     bigger_root = (-b + (b ** 2 - 4 * a * c) ** (1 / 2)) / (2 * a)
     return bigger_root
 
+
 def small_root(a, b, c):
     smaller_root = (-b - (b ** 2 - 4 * a * c) ** (1 / 2)) / (2 * a)
     return smaller_root
-

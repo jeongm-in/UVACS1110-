@@ -15,5 +15,4 @@ def repeat_12_times(word):
 
 favorite_word = input("Please type your favorite word: ")
 
-
 repeat_12_times(favorite_word)
