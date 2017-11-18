@@ -5,10 +5,12 @@ def mean(a, b, c):
 
 def median(a, b, c):
     """computes the median of real numbers a, b, and c."""
-    # TODO: Implement this function
-    # "use only features of Python we’ve learned in class
-    # (e.g., do not use lists, sort, sorted, etc.)"
-    pass
+    if a >= b >= c or c >= b >= a:
+        return b
+    elif a >= c >= b or b >= c >= a:
+        return c
+    else:
+        return a
 
 
 def rms(a, b, c):
