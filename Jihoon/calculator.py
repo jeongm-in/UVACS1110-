@@ -4,22 +4,23 @@ def binop(expression):
      There may also be arbitrarily many spaces before or after either number and
      /or the operator. The function returns the int or float value created by
      evaluating the expression."""
-    operators = ['+', '-', '*', '/']
-    operator_found = False
-    for operator in operators:
-        if operator_found:
-            break
-        else:
-            if operator in expression:
-                operator_found = True
-                expression_in_list = expression.split(operator)
-                operand1 = int(expression_in_list[0])
-                operand2 = int(expression_in_list[1])
-                if operator == '+':
-                    return operand1 + operand2
-                elif operator == '-':
-                    return operand1 - operand2
-                elif operator == '*':
-                    return operand1 * operand2
-                else:
-                    return operand1 / operand2
+    operators = '+-*/'
+    for i, character in enumerate(expression):
+        if character == '+':
+            return binop(expression[:i]) + binop(expression[i + 1:])
+        elif character == '-':
+            # first character or preceded by an operator -> negative number
+            if i == 0 or expression[i - 1] in operators:
+                continue
+            else:
+                # if the previous character is a number -> subtraction
+                return binop(expression[:i]) - binop(expression[i + 1:])
+        elif character == '*':
+            return binop(expression[:i]) * binop(expression[i + 1:])
+        elif character == '/':
+            return binop(expression[:i]) / binop(expression[i + 1:])
+
+    if expression.strip() == '':
+        return 0
+    else:
+        return int(expression)
