@@ -8,7 +8,7 @@ The link to UVA's CS1110 course is as follows: https://cs1110.cs.virginia.edu/in
 
 Current collaborators are
 
-Name | ID | Github Account
+Name | Nickname | Github Account
 ---- | --- | -------------
 Jihoon Park | Bartleby | @Bartleby2718
 Jeong-Min Lim | Sogogibeef | @jeongm
