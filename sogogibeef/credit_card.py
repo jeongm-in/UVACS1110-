@@ -47,5 +47,5 @@ def check(your_credit_card_number):
 
 
 
-if check(5490123456789128):
+if check(14141444141):
    print('is valid')
