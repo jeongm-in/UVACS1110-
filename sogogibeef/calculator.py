@@ -10,7 +10,7 @@
 
 def binop(arithmetic_expression):
     # Accepted operators : +, -, *, /
-    operators = ["+", "*", "/", "-"]
+    operators = "-+*/"
     operators_other_than_subtract = operators[:-1]
     operator_other_than_subtract_is_in_expression = [True for operator in operators_other_than_subtract
                                                      if operator in arithmetic_expression]
