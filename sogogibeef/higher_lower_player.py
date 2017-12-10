@@ -9,23 +9,42 @@ answer_range = list(range(101))  # http://www.pythoncentral.io/pythons-range-fun
 
 while True:
     middle_value = sum(answer_range) // len(answer_range)
-    if guesses == 0:
-        ask_answer = input('I lost; what was the answer? ')
-        if ask_answer in answer_range:
-            answer_was_in_range = 'That can\'t be; you said it was higher than {}!'.format(middle_value)
-            break
-        print('Well played!')
-        break
-
-
+    # end condition -> use switches
     middle_value_index = answer_range.index(middle_value)
     guess_prompt = 'Is the number higher, lower, or the same as {}? '.format(middle_value)
-    value_comparison = input(guess_prompt)
-    if value_comparison == 'same' and guesses != 0:
-        print('I won!')
-        break
-    elif value_comparison == 'higher':
+    value_comparison_raw = input(guess_prompt)
+    value_comparison = value_comparison_raw.strip().lower() #TQ
+    if value_comparison == 'higher':
         answer_range = (answer_range[middle_value_index:])
     elif value_comparison == 'lower':
         answer_range = (answer_range[:middle_value_index - 1])
+    # End conditions
+
+    final_max = answer_range[-1]
+    final_min = answer_range[0]
+
+    if guesses == 0 and value_comparison != 'same':
+        user_answer = int(input('I lost; what was the answer? '))
+        if user_answer <= final_min:
+            user_lied_higher = 'That can\'t be; you said it was higher than {}!'.format(final_min)
+            print(user_lied_higher)
+            break
+        elif user_answer >= final_max:
+            user_lied_lower = 'That can\'t be; you said it was lower than {}!'.format(final_max)
+            print(user_lied_lower)
+            break
+        else:
+            print('Well played!')
+            break
+    elif len(answer_range) == 0:
+        answer_out_of_range = 'Wait; how can it be both higher than {} and lower than {}?'.format(final_min,
+                                                                                                  final_max)
+        print(answer_out_of_range)
+        break
+    elif value_comparison == 'same':
+        print('I won!')
+        break
+
     guesses -= 1
+
+
