@@ -13,7 +13,7 @@ while True:
     middle_value_index = answer_range.index(middle_value)
     guess_prompt = 'Is the number higher, lower, or the same as {}? '.format(middle_value)
     value_comparison_raw = input(guess_prompt)
-    value_comparison = value_comparison_raw.strip().lower() #TQ
+    value_comparison = value_comparison_raw.strip().lower()  # TQ
     if value_comparison == 'higher':
         answer_range = (answer_range[middle_value_index:])
     elif value_comparison == 'lower':
@@ -46,5 +46,3 @@ while True:
         break
 
     guesses -= 1
-
-
