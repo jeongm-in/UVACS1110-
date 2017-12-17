@@ -6,21 +6,23 @@ import random
 
 user_input_is_valid = False
 
-while user_input_is_valid == False: # Should I do while False: even?
-    answer = int(input('What should the answer be? '))
-    if answer == -1:
+while True:
+    user_answer = int(input('What should the answer be? '))
+    if user_answer == -1:
         answer = random.randrange(1, 101)
         break
-    elif answer in range(1, 101):
+    elif user_answer in range(1, 101):
+        answer = user_answer
         break
-    print('Type -1 or number between 1 and 100.')
+    print('Type number between 1 and 100 or -1 for random answer.')
 
 guesses_remaining = int(input('How many guesses? '))
 is_answer = False
-while is_answer == False:  # Again, should I use is_answer == False or chances != 0?
+
+while is_answer == False:
     guess = int(input('Guess a number: '))
     guesses_remaining -= 1
-    if guesses_remaining == 0:
+    if guesses_remaining == 0 and guess != answer:
         lose_message = 'You lose; the number was {}.'.format(answer)
         print(lose_message)
         break
