@@ -26,7 +26,10 @@ def compatible_for_ints(condition1, condition2):
                 and operand1 > operand2 + 1))
 
 
-print("Think of a number between 1 and 100 and I'll guess it.")
+minimum = 1
+maximum = 100
+print("Think of a number between {} and {} and I'll guess it.".format(
+    minimum, maximum))
 
 number_of_guesses = int(input('How many guesses do I get? '))
 remaining_number_of_guesses = number_of_guesses
@@ -34,7 +37,7 @@ guess_correct = False
 contradiction_found = False
 
 conditions = []
-initial_answer_range = range(1, 100 + 1)
+initial_answer_range = range(minimum, maximum + 1)
 answer_range = initial_answer_range
 
 closing_sentence = 'Well played!'
@@ -91,14 +94,18 @@ elif guess_correct:
     closing_sentence = 'I won!'
 elif not answer_range or remaining_number_of_guesses == 0:
     answer = int(input('I lost; what was the answer? '))
-    for condition in conditions:
-        condition_operator, condition_operand = condition
-        if not satisfies_comparison(answer, condition_operator,
-                                    condition_operand):
-            condition_operator_in_english = operator_to_english.get(
-                condition_operator)
-            closing_sentence = "That can't be; you said it was {} {}!".format(
-                condition_operator_in_english, condition_operand)
-            break
+    if answer not in initial_answer_range:
+        closing_sentence = "I said it was between {} and {}!".format(minimum,
+                                                                     maximum)
+    else:
+        for condition in conditions:
+            condition_operator, condition_operand = condition
+            if not satisfies_comparison(answer, condition_operator,
+                                        condition_operand):
+                condition_operator_in_english = operator_to_english.get(
+                    condition_operator)
+                closing_sentence = "That can't be; you said it was {} {}!".format(
+                    condition_operator_in_english, condition_operand)
+                break
 
 print(closing_sentence)
