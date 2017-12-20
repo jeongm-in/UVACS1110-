@@ -1,39 +1,40 @@
 class Condition(object):
     def __init__(self, operator, operand):
-        assert operator and operator in '>=<', \
+        assert isinstance(operator, str) and operator and operator in '>=<', \
             "Parameter 'operator' must be one of '>', '=', or '<'."
         assert isinstance(operand, int), \
             "Parameter 'operand' must be an int."
-        self.operator = operator
-        self.operand = operand
+        self.operator, self.operand = operator, operand
 
-    def compatible_with(self, another_condition):
-        assert isinstance(another_condition, Condition), \
+    def compatible_with(self, condition2):
+        assert isinstance(condition2, Condition), \
             "Parameter 'condition' must be a Condition"
-        operator1 = self.operator
-        operand1 = self.operand
-        operator2 = another_condition.operator
-        return ((operator1 == '>' and operator2 in '=<'
-                 and another_condition.satisfied_by(operand1 + 1))
+        operator1, operand1 = self.operator, self.operand
+        operator2, operand2 = condition2.operator, condition2.operand
+        return (operator1 == operator2 and operator2 in '><'
+                or (operator1 == '>' and operator2 == '='
+                    and operand1 < operand2)
+                or (operator1 == '>' and operator2 == '<'
+                    and operand1 + 1 < operand2)
                 or (operator1 == '=' and operator2 in '>=<'
-                    and another_condition.satisfied_by(operand1))
-                or (operator1 == '<' and operator2 in '>='
-                    and another_condition.satisfied_by(operand1 - 1))
-                or operator1 == operator2 and operator2 in '><')
+                    and condition2.satisfied_by(operand1))
+                or (operator1 == '<' and operator2 == '='
+                    and operand2 < operand1)
+                or (operator1 == '<' and operator2 == '>'
+                    and operand1 > operand2 + 1))
 
     def satisfied_by(self, number):
         assert isinstance(number, int), \
             "Parameter 'number' must be an int."
-        if self.operator == '=':
-            return self.operand == number
-        else:
-            return eval('{}{}{}'.format(number, self.operator, self.operand))
+        return self.operand == number if self.operator == '=' \
+            else eval('{}{}{}'.format(number, self.operator, self.operand))
 
 
-operator_to_english = {'>': 'higher than',
-                       '<': 'lower than',
-                       '=': 'same as'}
-
+operator_to_english = {
+    '>': 'higher than',
+    '<': 'lower than',
+    '=': 'same as',
+}
 minimum = 1
 maximum = 100
 print("Think of a number between {} and {} and I'll guess it.".format(
@@ -76,20 +77,16 @@ while answer_range and remaining_number_of_guesses > 0 and not \
     new_condition = Condition(operator, next_guess)
     conditions.append(new_condition)
 
-    for previous_condition in conditions:
+    for previous_condition in conditions[:-1]:
         if previous_condition.compatible_with(new_condition):
             answer_range = [number for number in answer_range if
                             new_condition.satisfied_by(number)]
         else:
             contradiction_found = True
-            previous_condition_operator_in_english = operator_to_english.get(
-                previous_condition.operator)
-            new_condition_operator_in_english = operator_to_english.get(
-                new_condition.operator)
             closing_sentence = 'Wait; how can it be both {} {} and {} {}?'.format(
-                previous_condition_operator_in_english,
-                previous_condition.operand,
-                new_condition_operator_in_english, new_condition.operand)
+                operator_to_english[previous_condition.operator],
+                previous_condition.operand, operator_to_english[
+                    new_condition.operator], new_condition.operand)
             break
 
 if contradiction_found:
@@ -104,10 +101,8 @@ elif not answer_range or remaining_number_of_guesses == 0:
     else:
         for condition in conditions:
             if not condition.satisfied_by(answer):
-                condition_operator_in_english = operator_to_english.get(
-                    condition.operator)
                 closing_sentence = "That can't be; you said it was {} {}!".format(
-                    condition_operator_in_english, condition.operand)
+                    operator_to_english[condition.operator], condition.operand)
                 break
 
 print(closing_sentence)
