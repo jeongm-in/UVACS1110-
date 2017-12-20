@@ -9,7 +9,7 @@ limit_upper_lower = [0, 4000]
 RN_list = []
 arabic_numeral = int(input('Enter an integer: '))
 
-while arabic_numeral < 1 or arabic_numeral > 3999:  # Input integer to convert
+while not 0 < arabic_numeral < 4000:  # Input integer to convert
     print('Input must be between 1 and 3999.')
     arabic_numeral = int(input('Enter an integer: '))
 
