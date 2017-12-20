@@ -2,37 +2,25 @@
 # prompts user to enter an integer between 0 and 4000, and returns roman numeral of user input
 # input must be an integer between 0 and 4000
 roman_dictionary = {1000: 'M', 500: 'D', 100: 'C', 50: 'L', 10: 'X', 5: 'V', 1: 'I'}
-
-upper_limit = 4000
-lower_limit = 0
-roman_numeric_list = []
-
+limit_upper_lower = [0, 4000]
+RN_list = []
 arabic_numeral = int(input('Enter an integer: '))
-if arabic_numeral <= lower_limit or arabic_numeral >= upper_limit:
+if arabic_numeral <= limit_upper_lower[0] or arabic_numeral >= limit_upper_lower[1]:
     print('Input must be between 1 and 3999.')
-
 else:
     for denominator in roman_dictionary.keys():
-        how_many_roman_numerals = divmod(arabic_numeral, denominator)
-        for num in range(how_many_roman_numerals[0]):
-            roman_numeric_list.append(roman_dictionary[denominator])
-        arabic_numeral = how_many_roman_numerals[1]  # #15
+        how_many_RN = divmod(arabic_numeral, denominator)
+        for num in range(how_many_RN[0]):
+            RN_list.append(roman_dictionary[denominator])
+        arabic_numeral = how_many_RN[1]  # #15
+    RN_joined = ''.join(RN_list)
+RN_format_dic = {'CCCC' : ['D', 'CM', 'CD', 'DCCCC'], 'XXXX' : ['L', 'XC', 'XL', 'LXXXX'], 'IIII' : ['V', 'IX', 'IV',
+                                                                                                     'VIIII']}
+for RN_unformatted in RN_format_dic.keys():
+    if RN_unformatted in RN_joined:
+        if RN_format_dic[RN_unformatted][0] in RN_joined:
+            RN_joined = RN_joined.replace(RN_format_dic[RN_unformatted][3], RN_format_dic[RN_unformatted][1])
+        else:
+            RN_joined = RN_joined.replace(RN_unformatted, RN_format_dic[RN_unformatted][2])
 
-    roman_numeric_joined = ''.join(roman_numeric_list)
-
-# Fix roman numerics in proper format
-# TODO : how to extract if bulk for formatting
-if 'DCCCC' in roman_numeric_joined:
-    roman_numeric_joined = roman_numeric_joined.replace('DCCCC', 'CM')
-if 'D' not in roman_numeric_joined and 'CCCC' in roman_numeric_joined:
-    roman_numeric_joined = roman_numeric_joined.replace('CCCC', 'CD')
-if 'LXXXX' in roman_numeric_joined:
-    roman_numeric_joined = roman_numeric_joined.replace('LXXXX', 'XC')
-if 'L' not in roman_numeric_joined and 'XXXX' in roman_numeric_joined:
-    roman_numeric_joined = roman_numeric_joined.replace('XXXX', 'XL')
-if 'VIIII' in roman_numeric_joined:
-    roman_numeric_joined = roman_numeric_joined.replace('VIIII', 'IX')
-if 'V' not in roman_numeric_joined and 'IIII' in roman_numeric_joined:
-    roman_numeric_joined = roman_numeric_joined.replace('IIII', 'IV')
-
-print(roman_numeric_joined)
+print(RN_joined)
