@@ -5,7 +5,7 @@ while not 0 < int(user_input) < 4000:
 
 symbols = 'IVXLCDM'
 answer = ''
-for i in range(0, len(user_input)):
+for i in range(len(user_input)):
     digit = int(user_input[-i - 1])
     if digit % 5 == 4:
         chunk = symbols[2 * i] + symbols[2 * i + (digit // 5) + 1]
