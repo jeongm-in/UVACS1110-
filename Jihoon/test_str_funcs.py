@@ -72,9 +72,9 @@ class TestStringFunctions(unittest.TestCase):
         ]
         for test_case in test_cases:
             normal = sf.between(*test_case)
-            reversed = sf.rbetween(*test_case)
+            reversed_ = sf.rbetween(*test_case)
             random = sf.rand_between(*test_case)
-            self.assertIn(random, [normal, reversed])
+            self.assertIn(random, [normal, reversed_])
 
     def test_temperature(self):
         self.assertEqual(sf.temperature(
