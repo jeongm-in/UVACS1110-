@@ -6,7 +6,6 @@ from . import str_funcs as sf
 class TestStringFunctions(unittest.TestCase):
     def test_ellipsis(self):
         self.assertEqual(sf.ellipsis('computer science'), 'co..ce')
-        self.assertEqual(sf.ellipsis('abcd'), 'abcd')
         self.assertRaises(AssertionError, sf.ellipsis, ['ab', 'c', 'd', 'e'])
         self.assertRaises(AssertionError, sf.ellipsis, 'a')
         self.assertRaises(AssertionError, sf.ellipsis, '')
@@ -39,7 +38,6 @@ class TestStringFunctions(unittest.TestCase):
                                     ' lo'), 'vely')
         self.assertEqual(sf.between('quick', 'u'), '')
         self.assertEqual(sf.between('quick', 'z'), '')
-        self.assertEqual(sf.between('quick', ''), '')
         self.assertRaises(AssertionError, sf.between, [1, 2, 1], 1)
         self.assertRaises(AssertionError,
                           sf.between, ['a', 'b', 'a'], 'a')
