@@ -44,8 +44,8 @@ class TestStringFunctions(unittest.TestCase):
         self.assertRaises(AssertionError,
                           sf.between, ['a', 'b', 'a'], 'a')
         self.assertEqual(sf.between('aa', 'a'), '')
-        self.assertEqual(sf.rbetween('abaabaaab', 'a'), 'b')
-        self.assertEqual(sf.rbetween('abaabaaab', 'b'), 'aa')
+        self.assertEqual(sf.between('abaabaaab', 'a'), 'b')
+        self.assertEqual(sf.between('abaabaaab', 'b'), 'aa')
 
     def test_rbetween(self):
         self.assertEqual(sf.rbetween('peripatetics', 'p'), 'eri')
