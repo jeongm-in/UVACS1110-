@@ -4,7 +4,7 @@ from . import str_funcs as sf
 
 
 class TestStringFunctions(unittest.TestCase):
-    def test_ellipsis(self, s):
+    def test_ellipsis(self):
         self.assertEqual(sf.ellipsis('computer science'), 'co..ce')
         self.assertEqual(sf.ellipsis('abcd'), 'abcd')
         self.assertRaises(AssertionError,
@@ -13,7 +13,7 @@ class TestStringFunctions(unittest.TestCase):
         self.assertRaises(AssertionError, sf.ellipsis(''))
         self.assertRaises(AssertionError, sf.ellipsis(12345))
 
-    def test_eighteen(self, s):
+    def test_eighteen(self):
         self.assertEqual(sf.eighteen('computer science'), 'c14e')
         self.assertEqual(sf.eighteen('is'), 'i0s')
         self.assertEqual(sf.eighteen('fun'), 'f1n')
@@ -22,7 +22,7 @@ class TestStringFunctions(unittest.TestCase):
         self.assertRaises(AssertionError, sf.eighteen(''))
         self.assertRaises(AssertionError, sf.eighteen(1234))
 
-    def test_allit(self, s, t):
+    def test_allit(self):
         """True if s and t start with the same non-vowel character
         Your code should treat upper- and lower-case letters as the same."""
         self.assertTrue(sf.allit('hi', 'hello'))
