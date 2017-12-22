@@ -7,20 +7,19 @@ class TestStringFunctions(unittest.TestCase):
     def test_ellipsis(self):
         self.assertEqual(sf.ellipsis('computer science'), 'co..ce')
         self.assertEqual(sf.ellipsis('abcd'), 'abcd')
-        self.assertRaises(AssertionError,
-                          sf.ellipsis(['ab', 'c', 'd', 'e']))
-        self.assertRaises(AssertionError, sf.ellipsis('a'))
-        self.assertRaises(AssertionError, sf.ellipsis(''))
-        self.assertRaises(AssertionError, sf.ellipsis(12345))
+        self.assertRaises(AssertionError, sf.ellipsis, ['ab', 'c', 'd', 'e'])
+        self.assertRaises(AssertionError, sf.ellipsis, 'a')
+        self.assertRaises(AssertionError, sf.ellipsis, '')
+        self.assertRaises(AssertionError, sf.ellipsis, 12345)
 
     def test_eighteen(self):
         self.assertEqual(sf.eighteen('computer science'), 'c14e')
         self.assertEqual(sf.eighteen('is'), 'i0s')
         self.assertEqual(sf.eighteen('fun'), 'f1n')
-        self.assertRaises(AssertionError, sf.eighteen([1, 2, 3, '4']))
-        self.assertRaises(AssertionError, sf.eighteen('a'))
-        self.assertRaises(AssertionError, sf.eighteen(''))
-        self.assertRaises(AssertionError, sf.eighteen(1234))
+        self.assertRaises(AssertionError, sf.eighteen, [1, 2, 3, '4'])
+        self.assertRaises(AssertionError, sf.eighteen, 'a')
+        self.assertRaises(AssertionError, sf.eighteen, '')
+        self.assertRaises(AssertionError, sf.eighteen, 1234)
 
     def test_allit(self):
         """True if s and t start with the same non-vowel character
@@ -30,7 +29,7 @@ class TestStringFunctions(unittest.TestCase):
         self.assertTrue(sf.allit('jeongmin', 'Jihoon'))
         self.assertFalse(sf.allit('fun', 'great fun'))
         self.assertFalse(sf.allit('exciting', 'excitement'))
-        self.assertRaises(AssertionError, sf.allit(['h', 'i'], 'hi'))
+        self.assertRaises(AssertionError, sf.allit, ['h', 'i'], 'hi')
 
     def test_between(self):
         self.assertEqual(sf.between('peripatetics', 'p'), 'eri')
@@ -41,9 +40,9 @@ class TestStringFunctions(unittest.TestCase):
         self.assertEqual(sf.between('quick', 'u'), '')
         self.assertEqual(sf.between('quick', 'z'), '')
         self.assertEqual(sf.between('quick', ''), '')
-        self.assertRaises(AssertionError, sf.between([1, 2, 1], 1))
+        self.assertRaises(AssertionError, sf.between, [1, 2, 1], 1)
         self.assertRaises(AssertionError,
-                          sf.between(['a', 'b', 'a'], 'a'))
+                          sf.between, ['a', 'b', 'a'], 'a')
         self.assertEqual(sf.between('aa', 'a'), '')
         self.assertEqual(sf.rbetween('abaabaaab', 'a'), 'b')
         self.assertEqual(sf.rbetween('abaabaaab', 'b'), 'aa')
@@ -57,9 +56,9 @@ class TestStringFunctions(unittest.TestCase):
         self.assertEqual(sf.rbetween('quick', 'u'), '')
         self.assertEqual(sf.rbetween('quick', 'z'), '')
         self.assertEqual(sf.rbetween('quick', ''), '')
-        self.assertRaises(AssertionError, sf.rbetween([1, 2, 1], 1))
+        self.assertRaises(AssertionError, sf.rbetween, [1, 2, 1], 1)
         self.assertRaises(AssertionError,
-                          sf.rbetween(['a', 'b', 'a'], 'a'))
+                          sf.rbetween, ['a', 'b', 'a'], 'a')
         self.assertEqual(sf.rbetween('aa', 'a'), '')
         self.assertEqual(sf.rbetween('abaabaaab', 'a'), '')
         self.assertEqual(sf.rbetween('abaabaaab', 'b'), 'aaa')
@@ -101,5 +100,5 @@ class TestStringFunctions(unittest.TestCase):
             sf.vowel_confusion(
                 "I sang, and thought I sang very well; but he just looked up into my face with a very quizzical expression, and said, 'How long have you been singing, Mademoiselle?'"),
             "E sang, and thought E sang viry will; but hi just lookid up ento my faci weth a viry quezzecal ixprisseon, and saed, 'How long havi you biin sengeng, Madimoesilli?'")
-        self.assertRaises(AssertionError, sf.vowel_confusion(['e', 'i']))
+        self.assertRaises(AssertionError, sf.vowel_confusion, ['e', 'i'])
         self.assertEqual(sf.vowel_confusion('EeIi iIeE'), 'IiEe eEiI')
