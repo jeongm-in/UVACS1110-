@@ -53,7 +53,6 @@ class TestStringFunctions(unittest.TestCase):
                                      ' lo'), 'on to')
         self.assertEqual(sf.rbetween('quick', 'u'), '')
         self.assertEqual(sf.rbetween('quick', 'z'), '')
-        self.assertEqual(sf.rbetween('quick', ''), '')
         self.assertRaises(AssertionError, sf.rbetween, [1, 2, 1], 1)
         self.assertRaises(AssertionError,
                           sf.rbetween, ['a', 'b', 'a'], 'a')
