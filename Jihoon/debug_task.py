@@ -1,49 +1,43 @@
 # Original written by Mark Sherriff (mss2x)
 # Modified and bugs introduced by Luther Tychonievich (lat7h)
 
-marbles = 0
-pick = 0
 
 def pow2(n):
-    """Computes are returns the largest power of two that is no larger than n"""
+    """Computes and returns the largest power of two that is no larger than n"""
     ans = 1
-    while ans*2 <= n:
+    while ans * 2 <= n:
         ans *= 2
     return ans
 
+
 print("The Game of Nim\n")
+
+marbles = 0
 while marbles <= 0:
     marbles = int(input("The number of marbles in the pile: "))
+
 turn_choice = input("Who will start? (p or c): ")
-turn = False
-if turn_choice == 'p':
-    turn = True
+player_turn = turn_choice == 'p'
 
 while marbles != 0:
-    print("The pile has ", marbles, " marbles in it.")
-    if turn:
-        can_take = marbles // 2
+    print("The pile has", marbles, "marbles in it.")
+    can_take = marbles // 2
+    if player_turn:
         if can_take == 0:
             take = 1
         else:
             take = 0
-            while take > can_take or take < 1:
+            while take < 1 or take > can_take:
                 take = int(input(
-                    "How many marbles to you want to take (1-" + str(
-                        can_take) + "): "))
-        marbles -= take
+                    "How many marbles to you want to take (1-{}): ".format(
+                        can_take)))
     else:
-        take = 1
         target = pow2(marbles) - 1
         take = marbles - target
-        if take < 1 or take > marbles // 2:
+        if take < 1 or take > can_take:
             take = 1
-        marbles -= take
-        print("The computer takes ", take, " marbles.")
+        print("The computer takes", take, "marbles.")
+    marbles -= take
+    player_turn = not player_turn
 
-    turn = not turn
-
-if turn:
-    print("The player wins!")
-else:
-    print("The computer wins!")
+print("The player wins!" if player_turn else "The computer wins!")
