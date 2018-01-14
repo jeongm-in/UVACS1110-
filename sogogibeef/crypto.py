@@ -1,5 +1,4 @@
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-            'v', 'w', 'x', 'y', 'z']
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
 
 def index_to_letter(index):
@@ -101,16 +100,17 @@ def interleave(text):
     :return: encrypted text
     """
     text_length = len(text)
+    middle_index = int(text_length / 2)
     ans = ''
     if text_length % 2 == 0:
-        first_half = text[:text_length / 2]
-        second_half = text[text_length / 2:]
+        first_half = text[:middle_index]
+        second_half = text[middle_index:]
         for i in range(len(second_half)):
             ans = ans + first_half[i] + second_half[i]
 
     else:
-        first_half = text[:text_length / 2 + 1]
-        second_half = text[text_length / 2 + 1:]
+        first_half = text[:middle_index + 1]
+        second_half = text[middle_index + 1:]
         for i in range(len(second_half)):
             ans = ans + first_half[i] + second_half[i]
         ans = ans + first_half[-1]
@@ -127,4 +127,4 @@ def deinterleave(text):
     return text[0::2] + text[1::2]
 
 
-
+print(interleave('water'))
