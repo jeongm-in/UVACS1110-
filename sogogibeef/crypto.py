@@ -1,4 +1,5 @@
-alphabet = 'abcdefghijklmnopqrstuvwxyz'
+import string
+alphabet = string.ascii_lowercase
 
 
 def index_to_letter(index):
