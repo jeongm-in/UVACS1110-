@@ -6,8 +6,6 @@ import io
 import requests
 
 
-# 38.0317274, -78.5110432
-
 def distance_between(lat_1, lon_1, lat_2, lon_2):
     '''Uses the "great circle distance" formula and the circumference of the earth
     to convert two GPS coordinates to the miles separating them'''
@@ -33,26 +31,29 @@ def get_address(data):
 
 
 csv_url = 'http://cs1110.cs.virginia.edu/files/wendys.csv'
-case = int(input('urllib, requests, local file: 1/2/3 '))
-if case == 1:
-    print('Using urllib \n')
-    raw_csv = urllib.request.urlopen(csv_url)
-    wendys_data = list(csv.reader(io.TextIOWrapper(raw_csv)))  # https://stackoverflow.com/a/21351911
 
-# elif case == 2:
-#     print('Using requests \n')
-#     raw_csv = requests.get(csv_url)
-#     # print(raw_csv.headers['content-type'])
-#     # print(raw_csv.raise_for_status())
-#     wendys_data = list(raw_csv)
-#     print(raw_csv)
-#     # wendys_data = list(csv.reader((raw_csv)))
-#     print(wendys_data)
+case = 0
+while case not in [1, 2, 3]:
+    case = int(input('urllib, requests, local file: 1/2/3 '))
+    if case == 1:
+        print('Using urllib \n')
+        raw_csv = urllib.request.urlopen(csv_url)
+        wendys_data = list(csv.reader(io.TextIOWrapper(raw_csv)))  # https://stackoverflow.com/a/21351911
+        break
 
-elif case == 3:
-    print('Using local file \n')
-    raw_csv = open('wendys.csv')
-    wendys_data = list(csv.reader(raw_csv))
+    elif case == 2:
+        print('Using requests \n')
+        raw_csv = requests.get(csv_url).text
+        data_text = raw_csv.splitlines()
+        wendys_data = []
+        for items in data_text: wendys_data.append(items.split(','))
+        break
+
+    elif case == 3:
+        print('Using local file \n')
+        raw_csv = open('wendys.csv')
+        wendys_data = list(csv.reader(raw_csv))
+        break
 
 user_location = input('What is your latitude and longitude? latitude, longitude: ').split(',')
 user_lat = float(user_location[0])
@@ -67,7 +68,7 @@ for counter, store_info in enumerate(wendys_data):
     if locations_distance < closest_location:
         closest_location = locations_distance
         which_store = counter
+
 closest_wendys = wendys_data[which_store]
-print(closest_wendys)
 
 webbrowser.open(get_address(closest_wendys))
