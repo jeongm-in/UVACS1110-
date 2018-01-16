@@ -39,20 +39,38 @@ stream = urllib.request.urlopen(email_hunt_url[1])
 
 for line in stream:
     decoded = line.decode('UTF-8').strip()
-    # reversed_line = decoded[::-1]
+
     decoded = decoded.replace(' at ', '@').replace(' (at) ', '@')
     decoded = decoded.replace(' (at)', '@').replace('(at) ', '@')
     decoded = decoded.replace('(at)', '@')
     decoded = decoded.replace(' dot ', '.').replace(' (dot) ', '.')
     decoded = decoded.replace(' (dot)', '.').replace('(dot) ', '.')
     decoded = decoded.replace('(dot)', '.')
+    decoded = decoded.replace('<br>','')
+
+    # Replaced by 'some_char's. Should be a better way to do this
+    if 'replaced by' in decoded:
+        decoded = decoded.replace('_',decoded[-3])
+
+
     result_list = emailRegex.findall(decoded)
-    
+
     # Convert to set to return unique values
     result_set = set(result_list)
+
+    # Check if line has reversed email address
     if len(result_set) != 0:
         for i in result_set:
             email_address = i
             if 'NOSPAM' in i:
                 email_address = i.replace('NOSPAM', '')
             print(email_address)
+    #
+    # reversed_line = decoded[::-1]
+    # reversed_result_set = set(emailRegex.findall(reversed_line))
+    # if len(reversed_result_set) != 0:
+    #     for i in reversed_result_set:
+    #         email_address = i
+    #         if 'NOSPAM' in i:
+    #             email_address = i.replace('NOSPAM', '')
+    #         print(email_address)
