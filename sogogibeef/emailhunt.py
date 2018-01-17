@@ -35,7 +35,7 @@ emailRegex = re.compile(r'''(
 
 email_hunt_url = 'http://cs1110.cs.virginia.edu/emails.html', \
                  'http://cs1110.cs.virginia.edu/emails.php'
-stream = urllib.request.urlopen(email_hunt_url[0])
+stream = urllib.request.urlopen(email_hunt_url[1])
 
 for line in stream:
     decoded = line.decode('UTF-8').strip()
@@ -62,7 +62,7 @@ for line in stream:
         for letter in decoded_list:
             base = 10
             if letter == '':
-                letter = '032'
+                continue
             elif 'x' in letter:
                 base = 16
                 letter = letter.replace('x', '')
