@@ -35,7 +35,7 @@ emailRegex = re.compile(r'''(
 
 email_hunt_url = 'http://cs1110.cs.virginia.edu/emails.html', \
                  'http://cs1110.cs.virginia.edu/emails.php'
-stream = urllib.request.urlopen(email_hunt_url[1])
+stream = urllib.request.urlopen(email_hunt_url[0])
 
 for line in stream:
     decoded = line.decode('UTF-8').strip()
@@ -46,11 +46,30 @@ for line in stream:
     decoded = decoded.replace(' dot ', '.').replace(' (dot) ', '.')
     decoded = decoded.replace(' (dot)', '.').replace('(dot) ', '.')
     decoded = decoded.replace('(dot)', '.')
-    decoded = decoded.replace('<br>','')
+    decoded = decoded.replace('<br>', '')
 
     # Replaced by 'some_char's. Should be a better way to do this
-    if 'replaced by' in decoded:
-        decoded = decoded.replace('_',decoded[-3])
+    if 'replaced by' and '_' in decoded:
+        decoded = decoded.replace('_', decoded[-3])
+
+    # Markdown encoding
+    if '&#' in decoded:
+        decoded = ''.join(decoded.split("&#")[1:])
+        decoded = decoded.split('">')[1].replace('</a>', '')
+        decoded = decoded.replace('&#', '')
+        decoded_list = decoded.split(';')
+        new_list = []
+        for letter in decoded_list:
+            base = 10
+            if letter == '':
+                letter = '032'
+            elif 'x' in letter:
+                base = 16
+                letter = letter.replace('x', '')
+            encoded_letter = chr(int(letter, base))
+            new_list.append(encoded_letter)
+
+        decoded = ''.join(new_list)
 
 
     result_list = emailRegex.findall(decoded)
