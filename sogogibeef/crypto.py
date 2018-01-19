@@ -1,9 +1,10 @@
-alphabet = 'abcdefghijklmnopqrstuvwxyz'
+import string
+
+alphabet = string.ascii_lowercase
 
 
 def index_to_letter(index):
-    if index > 25:
-        index = index - 26
+    index %= 26
     return alphabet[index]
 
 
@@ -27,11 +28,11 @@ def shift(text, key):
         if is_letter(letter):
             if letter.isupper():
                 letter = letter.lower()
-                ans = ans + index_to_letter(letter_to_index(letter) + key).upper()
+                ans += index_to_letter(letter_to_index(letter) + key).upper()
             else:
-                ans = ans + index_to_letter(letter_to_index(letter) + key)
+                ans += index_to_letter(letter_to_index(letter) + key)
         else:
-            ans = ans + letter
+            ans += letter
 
     return ans
 
@@ -54,18 +55,16 @@ def vigenere(text, key):
     :return: encrypted text
     """
     ans = ''
-    i = 0
-    for letter in text:
+    for counter, letter in enumerate(text):
         if is_letter(letter):
-            j = letter_to_index(key[i % len(key)])
+            index_to_move = letter_to_index(key[counter % len(key)])
             if letter.isupper():
                 letter = letter.lower()
-                ans = ans + index_to_letter(letter_to_index(letter) + j).upper()
+                ans += index_to_letter(letter_to_index(letter) + index_to_move).upper()
             else:
-                ans = ans + index_to_letter(letter_to_index(letter) + j)
+                ans += index_to_letter(letter_to_index(letter) + index_to_move)
         else:
-            ans = ans + letter
-        i = i + 1
+            ans += letter
     return ans
 
 
@@ -77,19 +76,17 @@ def unvigenere(text, key):
     :return: decrypted plain text
     """
     ans = ''
-    i = 0
-    for letter in text:
+    for counter, letter in enumerate(text):
         if is_letter(letter):
-            j = letter_to_index(key[i % len(key)])
-            # using text.index(letter) returned wrong value, as it returned index of first instance of the letter
+            index_to_move = letter_to_index(key[counter % len(key)])
             if letter.isupper():
                 letter = letter.lower()
-                ans = ans + index_to_letter(letter_to_index(letter) - j).upper()
+                ans += index_to_letter(letter_to_index(letter) - index_to_move).upper()
             else:
-                ans = ans + index_to_letter(letter_to_index(letter) - j)
+                ans += index_to_letter(letter_to_index(letter) - index_to_move)
         else:
-            ans = ans + letter
-        i = i + 1
+            ans += letter
+
     return ans
 
 
@@ -106,14 +103,14 @@ def interleave(text):
         first_half = text[:middle_index]
         second_half = text[middle_index:]
         for i in range(len(second_half)):
-            ans = ans + first_half[i] + second_half[i]
+            ans += first_half[i] + second_half[i]
 
     else:
         first_half = text[:middle_index + 1]
         second_half = text[middle_index + 1:]
         for i in range(len(second_half)):
-            ans = ans + first_half[i] + second_half[i]
-        ans = ans + first_half[-1]
+            ans += first_half[i] + second_half[i]
+        ans += first_half[-1]
 
     return ans
 
@@ -125,6 +122,3 @@ def deinterleave(text):
     :return: decrypted text
     """
     return text[0::2] + text[1::2]
-
-
-print(interleave('water'))
