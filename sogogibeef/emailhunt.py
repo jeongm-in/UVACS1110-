@@ -23,6 +23,14 @@ import re
 
 import urllib.request
 
+def decode_markdown(match_object):
+    characters = match_object.group(1)
+    # print(characters)
+    if characters.startswith('x'):
+        return chr(int(characters[1:], 16))
+    else:
+        return chr(int(characters))
+
 # Create email regex.
 
 emailRegex = re.compile(r'''(
@@ -40,37 +48,50 @@ stream = urllib.request.urlopen(email_hunt_url[1])
 for line in stream:
     decoded = line.decode('UTF-8').strip()
 
-    decoded = decoded.replace(' at ', '@').replace(' (at) ', '@')
-    decoded = decoded.replace(' (at)', '@').replace('(at) ', '@')
-    decoded = decoded.replace('(at)', '@')
-    decoded = decoded.replace(' dot ', '.').replace(' (dot) ', '.')
-    decoded = decoded.replace(' (dot)', '.').replace('(dot) ', '.')
-    decoded = decoded.replace('(dot)', '.')
+    replace_at = [' at ', ' (at) ', ' (at)', '(at) ', '(at)']
+    replace_dot = [' dot ', ' (dot) ', ' (dot)', '(dot) ', '(dot)']
+
+    for at in replace_at:
+        decoded = decoded.replace(at, '@')
+    for dot in replace_dot:
+        decoded = decoded.replace(dot, '.')
+
     decoded = decoded.replace('<br>', '')
 
     # Replaced by 'some_char's. Should be a better way to do this
     if 'replaced by' and '_' in decoded:
         decoded = decoded.replace('_', decoded[-3])
 
+    if 'reversed' in decoded:
+        decoded = decoded[::-1]
+
+    if 'initial' in decoded:
+        name_finder = re.compile(r'([A-Za-z]+)\s([A-Za-z]+)\.')
+        name = name_finder.findall(decoded)
+        first_name = name[0][0]
+        last_initial = name[0][1][0]
+        email_name = first_name + last_initial
+        decoded = decoded.replace('first name plus my last initial', email_name)
+
     # Markdown encoding
     if '&#' in decoded:
-        decoded = ''.join(decoded.split("&#")[1:])
-        decoded = decoded.split('">')[1].replace('</a>', '')
-        decoded = decoded.replace('&#', '')
-        decoded_list = decoded.split(';')
-        new_list = []
-        for letter in decoded_list:
-            base = 10
-            if letter == '':
-                continue
-            elif 'x' in letter:
-                base = 16
-                letter = letter.replace('x', '')
-            encoded_letter = chr(int(letter, base))
-            new_list.append(encoded_letter)
-
-        decoded = ''.join(new_list)
-
+        # decoded = ''.join(decoded.split("&#")[1:])
+        # decoded = decoded.split('">')[1].replace('</a>', '')
+        # decoded = decoded.replace('&#', '')
+        # decoded_list = decoded.split(';')
+        # new_list = []
+        # for letter in decoded_list:
+        #     base = 10
+        #     if letter == '':
+        #         continue
+        #     elif 'x' in letter:
+        #         base = 16
+        #         letter = letter.replace('x', '')
+        #     encoded_letter = chr(int(letter, base))
+        #     new_list.append(encoded_letter)
+        #
+        # decoded = ''.join(new_list)
+        decoded = re.sub('&#(.*?);', decode_markdown, decoded)
 
     result_list = emailRegex.findall(decoded)
 
@@ -84,12 +105,5 @@ for line in stream:
             if 'NOSPAM' in i:
                 email_address = i.replace('NOSPAM', '')
             print(email_address)
-    #
-    # reversed_line = decoded[::-1]
-    # reversed_result_set = set(emailRegex.findall(reversed_line))
-    # if len(reversed_result_set) != 0:
-    #     for i in reversed_result_set:
-    #         email_address = i
-    #         if 'NOSPAM' in i:
-    #             email_address = i.replace('NOSPAM', '')
-    #         print(email_address)
+
+
