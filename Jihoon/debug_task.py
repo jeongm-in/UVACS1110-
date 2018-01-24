@@ -23,14 +23,13 @@ while marbles != 0:
     print("The pile has", marbles, "marbles in it.")
     can_take = marbles // 2
     if player_turn:
-        if can_take == 0:
-            take = 1
-        else:
-            take = 0
-            while take < 1 or take > can_take:
-                take = int(input(
-                    "How many marbles to you want to take (1-{}): ".format(
-                        can_take)))
+        if marbles == 1:
+            can_take = 1
+        take = 0
+        while take < 1 or take > can_take:
+            take = int(input(
+                "How many marbles to you want to take (1-{}): ".format(
+                    can_take)))
     else:
         target = pow2(marbles) - 1
         take = marbles - target
