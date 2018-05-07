@@ -6,7 +6,7 @@ __UVACS1110-__ is a project to complete assignments from [University of Virginia
 
 Current collaborators are
 
-Name | Nickname | Github Account
+Name | Username | Github Account
 ---- | --- | -------------
 Jihoon Park | Bartleby | @Bartleby2718
 Jeong-Min Lim | Sogogibeef | @jeongm
