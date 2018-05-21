@@ -45,3 +45,4 @@ Thumbs.db
 
 # Python created files : https://stackoverflow.com/a/16869074/8776165
 */__pycache__
+/automate_online-materials/*
