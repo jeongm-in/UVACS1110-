@@ -7,4 +7,4 @@ Current collaborators are
 Name | Github Account
 ---- |  -------------
 Jihoon Park | @Bartleby2718
-Jeong-Min Lim| @jeongm
+Jeong-Min Lim| @jeongm-in
